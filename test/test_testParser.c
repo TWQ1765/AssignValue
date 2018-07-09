@@ -1,8 +1,9 @@
 #include "unity.h"
 #include "testParser.h"
 #include "Error.h"
-//#include "Exception.h"
-//#include "CException.h"
+#include "Exception.h"
+#include "CExceptionConfig.h"
+
 
 void setUp(void)
 {
@@ -22,15 +23,23 @@ void test_parseAndCompare_given_assign_with_extra_trailing_space_should_return_t
 	char *line = "assign ";
 	char *originalLine = line;
 	
-	TEST_ASSERT_TRUE(parseAndCompare(&line, "assign"));
-	TEST_ASSERT_EQUAL_PTR(originalLine + 6 , line);
+	TEST_ASSERT_TRUE(parseCompare(&line, "assign"));
+	TEST_ASSERT_EQUAL_PTR(originalLine + 6, line );
 
+	TEST_ASSERT_TRUE(tryOnlyreturnTrue());
 }
-
-
+void test_parseAndCompare_given_HeLLo_and_hello_expect_return_Flase(void)
+{
+	char *line = "HeLLo";
+	char *originalLine = line;
+	
+	TEST_ASSERT_TRUE(parseCompare(&line, "hello"));
+	TEST_ASSERT_EQUAL_PTR(originalLine + 5 , line );
+}
+/*
 
 //assign orange  = 21346 apple = 1 lemon=10
-void test_testParser_given_orange_21346_apple_1_lemon_10_should_assigned_correctly(void)
+void xtest_testParser_given_orange_21346_apple_1_lemon_10_should_assigned_correctly(void)
 {
 	int orange = 0, apple = 0, lemon = 0;
 	VariableMapping variableMapping[] = {
@@ -42,14 +51,15 @@ void test_testParser_given_orange_21346_apple_1_lemon_10_should_assigned_correct
 	
 	char *line = "assign orange  = 21346 apple = 1 lemon=10"
 	
-	parseTextAndAssignValues(line, variableMapping);
+	parseTextAndAssignValues(&line, variableMapping);
 	
     TEST_ASSERT_EQUAL(21346,orange);
 	TEST_ASSERT_EQUAL(1,apple);
 	TEST_ASSERT_EQUAL(10,lemon);
 	
-}
-void test_testParser_given_malform_guava_apple_1_lemon_10_should_assigned_correctly(void)
+}*/
+/*
+void xtest_testParser_given_malform_guava_apple_1_lemon_10_should_assigned_correctly(void)
 {
 	CEXCEPTION_T = e;
 	int guava = 0;
@@ -71,7 +81,7 @@ void test_testParser_given_malform_guava_apple_1_lemon_10_should_assigned_correc
 		
 	}
 }
-void test_testParser_given_malform_pineapple_without_equal_sign_should_thrown_ERR_VARIABLE_NOT_FOUND(void)
+void xtest_testParser_given_malform_pineapple_without_equal_sign_should_thrown_ERR_VARIABLE_NOT_FOUND(void)
 {
 	CEXCEPTION_T = e;
 	int pineapple = 0;
@@ -93,7 +103,7 @@ void test_testParser_given_malform_pineapple_without_equal_sign_should_thrown_ER
 		
 	}
 }
-void test_testParser_given_ciku_without_Number_should_thrown_ERR_VARIABLE_NOT_FOUND(void)
+void xtest_testParser_given_ciku_without_Number_should_thrown_ERR_VARIABLE_NOT_FOUND(void)
 {
 	CEXCEPTION_T = e;
 	int ciku = 0;
@@ -115,7 +125,7 @@ void test_testParser_given_ciku_without_Number_should_thrown_ERR_VARIABLE_NOT_FO
 		
 	}
 }
-void test_testParser_given_text_without_assign_should_thrown_ERR_VARIABLE_NOT_FOUND(void)
+void xtest_testParser_given_text_without_assign_should_thrown_ERR_VARIABLE_NOT_FOUND(void)
 {
 	CEXCEPTION_T = e;
 	int papaya = 0;
@@ -136,4 +146,4 @@ void test_testParser_given_text_without_assign_should_thrown_ERR_VARIABLE_NOT_FO
 	TEST_ASSERT_EQUAL(ERR_VARIABLE_NOT_FOUND,e->errorCode);
 		
 	}
-}
+}*/

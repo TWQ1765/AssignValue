@@ -1,5 +1,9 @@
 #ifndef _TESTPARSER_H
 #define _TESTPARSER_H
+#include	<stdio.h>
+#include	<stdarg.h>
+#include	<malloc.h>
+#include	<stdlib.h>
 
 typedef struct VariableMapping VariableMapping;
 struct VariableMapping {
@@ -23,4 +27,8 @@ int parseCompare(char **linePtr, char *cmpStr);
  * is thrown.
  */
 int parseAndConvertToNum(char **linePtr);
+int parseTextAndAssignValues();
+
+//try
+int tryOnlyreturnTrue();
 #endif // _TESTPARSER_H

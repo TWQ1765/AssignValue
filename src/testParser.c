@@ -5,8 +5,28 @@
  * it return zero, otherwise zero value.
  */
 int parseCompare(char **linePtr, char *cmpStr){
-	
-	return 0;
+	int i = 0;
+	int indexCount=0;//do nothing
+	if (((*linePtr == NULL) ||  (cmpStr == NULL))){
+		
+		return 0;
+	}
+	else{
+		while((*linePtr[i] != '\0') || (cmpStr[i] != '\0'))
+		{
+			if ((**linePtr == cmpStr[i]))//|| (*linePtr == ' ')
+			{
+				i++;
+				indexCount++;//do nothing
+				*linePtr++;
+			}
+			else
+			{
+				//*linePtr = *linePtr + indexCount;//(strlen(*linePtr));//indexCount;
+				return 1;
+			}
+		}
+	}
 }
 /**
  * Parse and convert the 1st string number to value.
@@ -21,4 +41,8 @@ int parseAndConvertToNum(char **linePtr){
 
 int parseTextAndAssignValues(){
 	
+}
+int tryOnlyreturnTrue(){
+	
+	return 1;
 }

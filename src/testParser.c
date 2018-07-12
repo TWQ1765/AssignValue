@@ -5,12 +5,12 @@
  * it return zero, otherwise zero value.
  * function needed:
  *	-int skipSpace(char** linePtr);
- *	-void skipSpacebehind(char** linePtr);
  */
 int parseCompare(char **linePtr, char *cmpStr){
 	int i = 0,j=0;
 	int indexCount=0;
 	int temp1=0,temp2=0,temp3=0,tempResult=0;//return value for func skipSpace()
+	int temp4=0,temp5=0,temp6=0;//return value for func skipSpace()
 	if (((*linePtr == NULL) ||  (cmpStr == NULL))){
 		return 0;
 	}
@@ -35,6 +35,9 @@ int parseCompare(char **linePtr, char *cmpStr){
 				indexCount++;
 			}i++;			
 		}
+		temp4=skipSpace(&strTemp);
+		temp5=skipSpace(linePtr);
+		temp6=skipSpace(&cmpStr);
 		//printf("i =%d,indexCount=%d\n",i,indexCount);
 		//printf("tempResult =%d\n",tempResult);
 		//printf("strTemplen =%d, (indexCount-1-temp1)=%d\n",strlen(strTemp) ,((indexCount-1-temp1)));

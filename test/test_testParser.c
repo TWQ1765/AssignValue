@@ -48,9 +48,10 @@ void test_skipSpace_given_tribleSpaceABD_expect_return_ture(void)
 void test_skipSpacebehind_given_ABCtribleSpace_expect_return_ture(void)
 {
 	char *line = "ABC   ";
-	skipSpacebehind(&line);
+	char *originalLine = line;
 	
-	TEST_ASSERT_EQUAL_STRING(line , "ABC");
+	TEST_ASSERT_TRUE(parseCompare(&line, "ABC"));
+	TEST_ASSERT_EQUAL_PTR(originalLine + 6, line );
 }
 
 void test_parseAndCompare_given_assign_with_extra_trailing_space_in_front_should_return_true(void)
@@ -77,7 +78,7 @@ void test_parseAndCompare_given_assign_with_extra_trailing_space_should_return_t
 }
 //*/
 
-void xtest_parseAndCompare_given_HeLLo_and_Hello_expect_return_Flase(void)
+void test_parseAndCompare_given_HeLLo_and_Hello_expect_return_Flase(void)
 {
 	char *line = "HeLLo";
 	char *originalLine = line;
@@ -86,7 +87,7 @@ void xtest_parseAndCompare_given_HeLLo_and_Hello_expect_return_Flase(void)
 	TEST_ASSERT_EQUAL_PTR(originalLine + 2 , line );
 }
 
-void xtest_parseAndCompare_given_NULL_and_Hello_expect_return_Flase(void)
+void test_parseAndCompare_given_NULL_and_Hello_expect_return_Flase(void)
 {
 	char *line = NULL;
 	char *originalLine = line;

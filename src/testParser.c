@@ -14,7 +14,7 @@ int parseCompare(char **linePtr, char *cmpStr){
 		char * strTemp = (char *)malloc(strlen(*linePtr));
 		strcpy(strTemp,*linePtr);
 		
-		printf("strTemp =%sXXX, *linePtr=%s\n",strTemp,*linePtr);
+		//printf("strTemp =%sXXX, *linePtr=%s\n",strTemp,*linePtr);
 		while ((strTemp[i] == cmpStr[i]) && ((strTemp[i] != ' ')|| (cmpStr[i]!= ' ')))
 		{
 			if((strTemp[i] == cmpStr[i])|| (strTemp[i] == ' ')|| (cmpStr[i]== ' '))
@@ -26,13 +26,13 @@ int parseCompare(char **linePtr, char *cmpStr){
 			}			
 		}
 		printf("lineptr =%c\n",strTemp[indexCount] );
-		while((strTemp[indexCount] ==' ') && (strTemp[indexCount]!= '\0')){
-			indexCount=indexCount+1;
-		}
+		//while((strTemp[indexCount] ==' ') && (strTemp[indexCount]!= '\0')){
+		//	indexCount=indexCount+1;
+		//}
 		*linePtr = *linePtr + (indexCount);//(strlen(*linePtr));//indexCount;
 		printf("strTemplen =%d, indexCount=%d\n",strlen(strTemp) ,indexCount);
 		
-		if((strlen(strTemp)) == indexCount){
+		if((strlen(strTemp-1)) == indexCount){
 			return 1;
 		}
 		else{

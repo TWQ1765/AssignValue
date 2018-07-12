@@ -45,6 +45,13 @@ void test_skipSpace_given_tribleSpaceABD_expect_return_ture(void)
 	TEST_ASSERT_EQUAL_PTR(originalLine + 3, line);
 }
 */
+void test_skipSpacebehind_given_ABCtribleSpace_expect_return_ture(void)
+{
+	char *line = "ABC   ";
+	skipSpacebehind(&line);
+	
+	TEST_ASSERT_EQUAL_STRING(line , "ABC");
+}
 
 void test_parseAndCompare_given_assign_with_extra_trailing_space_in_front_should_return_true(void)
 {
@@ -120,6 +127,8 @@ void test_parseAndCompare_given_2spaceHeLlo_and_2spaceHello_expect_return_flase(
 	TEST_ASSERT_FALSE(parseCompare(&line, "  Hello"));
 	TEST_ASSERT_EQUAL_PTR(originalLine + 4, line );
 }
+
+
 /*
 void test_parseTextAndAssignValues_given_no_table_mapping_should_throw_ERR_TABLE_IS_MISSING(void) {
   CEXCEPTION_T e;

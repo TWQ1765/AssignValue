@@ -5,6 +5,7 @@
  * it return zero, otherwise zero value.
  * function needed:
  *	-int skipSpace(char** linePtr);
+ *	-void skipSpacebehind(char** linePtr);
  */
 int parseCompare(char **linePtr, char *cmpStr){
 	int i = 0,j=0;
@@ -47,10 +48,12 @@ int parseCompare(char **linePtr, char *cmpStr){
 			tempResult = sqrt(tempResult);//for only +ve value
 			*linePtr = *linePtr + ((indexCount-1-tempResult));
 			}
+			
 		return 1;
 		}
 		else{
 			*linePtr = *linePtr + indexCount;
+			
 		return 0;
 		}
 	}
@@ -94,4 +97,24 @@ int skipSpace(char** linePtr){
 	*linePtr=*linePtr+count;
 	free(strTemp);
 	return count;
+}
+void skipSpacebehind(char** linePtr){
+	int i = 0 ;
+	int linePtrLen = strlen(*linePtr);
+	int stringLen=0 ;
+	char * strTemp = (char *)malloc(linePtrLen);
+	strcpy(strTemp,*linePtr);
+	while(strTemp[i] != ' '){
+	i++;
+	}
+	
+	printf("strTemp[i]=%c\n",strTemp[3]);
+	printf("i=%d\n",i);
+	
+	stringLen = linePtrLen - i;
+	printf("linePtr[stringLen]=%c\n",linePtr[stringLen]);
+	printf("stringLen=%d\n",stringLen);
+	linePtr[stringLen] = '\0'; 
+	free(strTemp);
+		 
 }

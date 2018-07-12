@@ -43,6 +43,9 @@
     - *common_defines
     - TEST
     - CEXCEPTION_USE_CONFIG_FILE
+    #The Following macro is to ensure vsnprintf() returns the length of
+    # bytes needed to write when if fails due to buffer being too small
+    - _ISOC99_SOURCE
   :test_preprocess:
     - *common_defines
     - TEST

@@ -4,6 +4,8 @@
 #include	<stdarg.h>
 #include	<malloc.h>
 #include	<stdlib.h>
+#include	<string.h>
+#include	<math.h>
 
 typedef struct VariableMapping VariableMapping;
 struct VariableMapping {
@@ -28,7 +30,7 @@ int parseCompare(char **linePtr, char *cmpStr);
  */
 int parseAndConvertToNum(char **linePtr);
 int parseTextAndAssignValues();
-
+int skipSpace(char** linePtr);
 //try
 int tryOnlyreturnTrue();
 #endif // _TESTPARSER_H

@@ -6,25 +6,37 @@
  */
 int parseCompare(char **linePtr, char *cmpStr){
 	int i = 0;
-	int indexCount=0;//do nothing
+	int indexCount=0;
 	if (((*linePtr == NULL) ||  (cmpStr == NULL))){
-		
 		return 0;
 	}
 	else{
-		while((*linePtr[i] != '\0') || (cmpStr[i] != '\0'))
+		char * strTemp = (char *)malloc(strlen(*linePtr));
+		strcpy(strTemp,*linePtr);
+		
+		printf("strTemp =%sXXX, *linePtr=%s\n",strTemp,*linePtr);
+		while ((strTemp[i] == cmpStr[i]) && ((strTemp[i] != ' ')|| (cmpStr[i]!= ' ')))
 		{
-			if ((**linePtr == cmpStr[i]))//|| (*linePtr == ' ')
-			{
+			if((strTemp[i] == cmpStr[i])|| (strTemp[i] == ' ')|| (cmpStr[i]== ' '))
+		    {	
+				//printf("lineptr =%c\n",strTemp[0] );
 				i++;
-				indexCount++;//do nothing
-				*linePtr++;
-			}
-			else
-			{
-				//*linePtr = *linePtr + indexCount;//(strlen(*linePtr));//indexCount;
-				return 1;
-			}
+				indexCount++;
+				//*linePtr++;
+			}			
+		}
+		printf("lineptr =%c\n",strTemp[indexCount] );
+		while((strTemp[indexCount] ==' ') && (strTemp[indexCount]!= '\0')){
+			indexCount=indexCount+1;
+		}
+		*linePtr = *linePtr + (indexCount);//(strlen(*linePtr));//indexCount;
+		printf("strTemplen =%d, indexCount=%d\n",strlen(strTemp) ,indexCount);
+		
+		if((strlen(strTemp)) == indexCount){
+			return 1;
+		}
+		else{
+			return 0;
 		}
 	}
 }
@@ -39,10 +51,12 @@ int parseAndConvertToNum(char **linePtr){
 	return 0;
 }
 
-int parseTextAndAssignValues(){
-	
-}
+
 int tryOnlyreturnTrue(){
 	
 	return 1;
+}
+
+int parseTextAndAssignValues(char *line, VariableMapping *varTableMapping) {
+  return 0;
 }

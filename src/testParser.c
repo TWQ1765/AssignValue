@@ -3,8 +3,12 @@
  * Parse and compare string number to value.
  * It igonres all spaces.
  * it return zero, otherwise zero value.
+ * if result return 1 the pointer stop at the last char
+ * and ignore spaces behind.
+ * else result return 0 the pointer back to 1st char
  * function needed:
  *	-int skipSpace(char** linePtr);
+ *	
  */
 int parseCompare(char **linePtr, char *cmpStr){
 	int i = 0,j=0;
@@ -14,44 +18,43 @@ int parseCompare(char **linePtr, char *cmpStr){
 		return 0;
 	}
 	else{
-		char * strTemp = (char *)malloc(strlen(*linePtr));
+		char *strTemp = (char *)malloc(strlen(*linePtr));
 		strcpy(strTemp,*linePtr);
-		///printf("strTemp =%s, *linePtr=%s\n",strTemp,*linePtr);//before skip space
 		temp1=skipSpace(&strTemp);
 		temp2=skipSpace(linePtr);//skip space and move pionter.
 		temp3=skipSpace(&cmpStr);
-		///printf("strTemp =%s, *linePtr=%s\n",strTemp,*linePtr);//after skip space
-		///printf("cmpStr =%s\n",cmpStr);
-		//printf("lineptrr =%c\n",strTemp[6] );
-		//printf("i =%d,j=%d\n",i,j);
-		//printf("lineptr =%c\n",strTemp[2] );
-		//printf("temp1 =%d,temp2=%d,temp3=%d\n",temp1,temp2,temp3);
-		while ((strTemp[i] == cmpStr[i])) 
-		{
-			if((strTemp[i] == cmpStr[i]))
-			{	
-				//printf("lineptr =%c\n",strTemp[i] );
+		while ((strTemp[i] == cmpStr[i])&&(strTemp[i] != ' ')&&(cmpStr[i] != ' ')){
+			if((strTemp[i] == cmpStr[i])){	
 				indexCount++;
 			}i++;			
 		}
-		//printf("i =%d,indexCount=%d\n",i,indexCount);
-		//printf("tempResult =%d\n",tempResult);
-		//printf("strTemplen =%d, (indexCount-1-temp1)=%d\n",strlen(strTemp) ,((indexCount-1-temp1)));
-		if ((strlen(strTemp) == (indexCount-1))){//|| ((strlen(strTemp) == (indexCount)))){
-			if(temp1==temp3){
-			*linePtr = *linePtr + ((indexCount-temp1));
-			}
-			else{
+		while(strTemp[i+j] == ' '){//make test pass(space trailing)
+			j++;
+		}
+		if(j==0){
+			j=0;
+		}
+		else{
+			j=j+1;	
+		}
+		if (((strlen(strTemp)-j) == (indexCount-1))){
 			tempResult = temp3 - temp1;
 			tempResult = pow(tempResult,2);
 			tempResult = sqrt(tempResult);//for only +ve value
-			*linePtr = *linePtr + ((indexCount-1-tempResult));
+			///printf("tempResult =%d\n",tempResult);
+			if(temp1==temp3){
+				*linePtr = *linePtr + ((indexCount-temp1));
 			}
-		return 1;
+			else{
+				*linePtr = *linePtr + ((indexCount-1-tempResult));
+			}
+			//free(strTemp);
+			return 1;
 		}
 		else{
-			*linePtr = *linePtr + indexCount;
-		return 0;
+			*linePtr = *linePtr-temp1;
+			//free(strTemp);
+			return 0;
 		}
 	}
 }
@@ -63,35 +66,74 @@ int parseCompare(char **linePtr, char *cmpStr){
  * is thrown.
  */
 int parseAndConvertToNum(char **linePtr){
-	return 0;
+	int i = 0,j = 0,k =0; 
+	int calResult = 0;
+	int convertValue = 0;
+	int numOfSpaceTrailing=0;
+	int temp = skipSpace(linePtr);//skip Space
+	char * strTemp = (char *)malloc(strlen(*linePtr));
+	char * addressValue = (char *)malloc(strlen(*linePtr));
+	strcpy(strTemp,*linePtr);
+	while((strTemp[i] != '\0')){
+		addressValue[i] = (strTemp[i]-48);
+		//printf("addressValue2=%d\n",addressValue[i]);
+		if((strTemp[i] == ' ')){
+			numOfSpaceTrailing++;
+		}else{
+			numOfSpaceTrailing=numOfSpaceTrailing;
+		}i++;
+	}
+	i=i-1-numOfSpaceTrailing;
+	//printf("numOfSpaceTrailing=%d\n",numOfSpaceTrailing);
+	while((i) >= 0){
+		calResult = (addressValue[j]*(pow(10,i)));
+		convertValue = convertValue + calResult;
+		i--;
+		j++;
+	}
+	//printf("convertValue=%d\n",convertValue);
+	//printf("i=%d\n",i);
+	free(addressValue);
+	//free(strTemp);
+	return convertValue;
 }
-
-
+//useless function waiting and readly for delete
 int tryOnlyreturnTrue(){
-	
 	return 1;
 }
-
+//useless function waiting and readly for delete
+/*
+char *getStringName(char **linePtr){
+	char * strTemp = (char *)malloc(strlen(*linePtr));
+	strcpy(strTemp,*linePtr);
+	return strTemp;
+}*/
 int parseTextAndAssignValues(char *line, VariableMapping *varTableMapping) {
-  return 0;
+	
+	char* line2 = "  assign  ";
+	int compareResult;
+	
+	compareResult = parseCompare(&line, "assign");
+	printf("compareResult= %d\n",compareResult);
+	
+	return compareResult;
 }
 /*
- *this function only skip space which is ' ' in front text
+ *this function only skip space which is ' ' in front text. 
+ * pionter are move until the 1st char are pionted.
  */
 int skipSpace(char** linePtr){
 	int count = 0;
 	int i=0;
-	
 	char * strTemp = (char *)malloc(strlen(*linePtr));
 	strcpy(strTemp,*linePtr);
-	
 	//printf("strTemp=%c\n",strTemp[1]);
-		while(strTemp[i] == ' '){
+	while(strTemp[i] == ' '){
 		i++;
 		count++;
-		}
+	}
 	//printf("count=%d\n",count);
 	*linePtr=*linePtr+count;
-	free(strTemp);
+	//free(strTemp);
 	return count;
 }

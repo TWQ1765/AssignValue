@@ -31,6 +31,7 @@ int parseCompare(char **linePtr, char *cmpStr);
 int parseAndConvertToNum(char **linePtr);
 int parseTextAndAssignValues();
 int skipSpace(char** linePtr);
+char *getStringUntilSpace(char *line);
 //try
 int tryOnlyreturnTrue();
 #endif // _TESTPARSER_H

@@ -101,6 +101,25 @@ int parseAndConvertToNum(char **linePtr){
 int tryOnlyreturnTrue(){
 	return 1;
 }
+char *getStringUntilSpace(char *line){
+	int i = 0, j =0;
+	char *getString;
+	int spaces = skipSpace(&line);//skip space here...
+	//printf("spaces = %d\n",spaces);
+	while(line[i] != ' '){
+		//printf("line[i]= %c\n",line[i]);
+		i++;
+	}
+	i=i-1;//get string length i
+	getString = (char *)malloc(i);
+	while(line[j] != ' '){
+		getString[j] = line[j];
+		j++;
+	}
+	getString[j] = '\0';//end string...
+	//printf("getString = %s\n",getString);
+	return getString;
+}
 //useless function waiting and readly for delete
 /*
 char *getStringName(char **linePtr){
@@ -110,14 +129,21 @@ char *getStringName(char **linePtr){
 }*/
 int parseTextAndAssignValues(char *line, VariableMapping *varTableMapping) {
 	
-	char* line2 = "  assign  ";
-	int compareResult;
-	
+	char * errorMsg;
+	int compareResult = 0 ;
+	int convertedResult = 0;
 	compareResult = parseCompare(&line, "assign");
 	printf("compareResult= %d\n",compareResult);
+	if (compareResult == 0){
+		convertedResult = parseAndConvertToNum(&line);
+	}else{
+		convertedResult = 0;
+	}
+	printf("convertedResult= %d\n",convertedResult);
 	
 	return compareResult;
 }
+
 /*
  *this function only skip space which is ' ' in front text. 
  * pionter are move until the 1st char are pionted.

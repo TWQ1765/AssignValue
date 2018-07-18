@@ -177,14 +177,15 @@ void test_parseTextAndAssignValues_given_no_command_should_do_nothing(void) {
     {NULL, NULL},
   };
   char *line = NULL;
-
+/*
   Try {
     parseTextAndAssignValues(line, varTableMapping);
-    // Should reach here because no command given
+    TEST_ASSERT_EQUAL(0,tomato);
   } Catch(e) {
     printf(e->errorMsg);
     freeError(e);
   }
+  */
 }
 
 void test_parseTextAndAssignValues_just_test(void) {
@@ -193,11 +194,20 @@ void test_parseTextAndAssignValues_just_test(void) {
     {"tomato", &tomato},
     {NULL, NULL},
   };
-  char *line = "assgin";
-    int result = parseTextAndAssignValues(line, varTableMapping);
+  char *line = "  assign  1";
+  char *line2 =  getStringUntilSpace(line);
+    int result = parseTextAndAssignValues(line2, varTableMapping);
+	printf("line= %s\n",line+5);
     TEST_ASSERT_TRUE(result);
  
 }
+void test_getStringUntilSpace_just_test(void) {
+	
+	char *line = "  assign  1";
+	char * getString = getStringUntilSpace(line);
+	TEST_ASSERT_EQUAL_STRING(getString,"assign");
+}
+
 
 /*
 void test_parseTextAndAssignValues_given_input_command_is_NULL_should_do_nothing(void) {

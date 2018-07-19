@@ -102,7 +102,7 @@ int tryOnlyreturnTrue(){
 	return 1;
 }
 char *getStringUntilSpace(char *line){
-	int i = 0, j =0;
+	int i = 0, j =0, k =0;
 	char *getString;
 	int spaces = skipSpace(&line);//skip space here...
 	//printf("spaces = %d\n",spaces);
@@ -111,35 +111,34 @@ char *getStringUntilSpace(char *line){
 		i++;
 	}
 	i=i-1;//get string length i
-	getString = (char *)malloc(i);
+	getString = (char *)malloc(i+spaces);
+	while(spaces>=0){
+		getString[k] = ' ';
+		spaces--;
+		k++;
+	}k=k-1;
 	while(line[j] != ' '){
-		getString[j] = line[j];
+		getString[j+k] = line[j];
 		j++;
 	}
-	getString[j] = '\0';//end string...
-	//printf("getString = %s\n",getString);
+	getString[j+k] = '\0';//end string...
+	printf("getString =%s\n",getString);
 	return getString;
 }
-//useless function waiting and readly for delete
-/*
-char *getStringName(char **linePtr){
-	char * strTemp = (char *)malloc(strlen(*linePtr));
-	strcpy(strTemp,*linePtr);
-	return strTemp;
-}*/
+
 int parseTextAndAssignValues(char *line, VariableMapping *varTableMapping) {
 	
 	char * errorMsg;
 	int compareResult = 0 ;
 	int convertedResult = 0;
 	compareResult = parseCompare(&line, "assign");
-	printf("compareResult= %d\n",compareResult);
+	//printf("compareResult= %d\n",compareResult);
 	if (compareResult == 0){
 		convertedResult = parseAndConvertToNum(&line);
 	}else{
 		convertedResult = 0;
 	}
-	printf("convertedResult= %d\n",convertedResult);
+	//printf("convertedResult= %d\n",convertedResult);
 	
 	return compareResult;
 }

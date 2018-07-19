@@ -197,15 +197,15 @@ void test_parseTextAndAssignValues_just_test(void) {
   char *line = "  assign  1";
   char *line2 =  getStringUntilSpace(line);
     int result = parseTextAndAssignValues(line2, varTableMapping);
-	printf("line= %s\n",line+5);
+	printf("line=%s\n",line);
     TEST_ASSERT_TRUE(result);
  
 }
-void test_getStringUntilSpace_just_test(void) {
+void test_getStringUntilSpace_given_2space_assign_2spaceTrailing_expect_true(void) {
 	
 	char *line = "  assign  1";
 	char * getString = getStringUntilSpace(line);
-	TEST_ASSERT_EQUAL_STRING(getString,"assign");
+	TEST_ASSERT_EQUAL_STRING(getString,"  assign");
 }
 
 
